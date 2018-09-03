@@ -14,7 +14,10 @@
     "nodemon": "^1.18.4"
   },
   "dependencies": {
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
     "restify": "^7.2.1",
+    "sequelize": "^4.38.0",
     "winston": "^3.0.0"
   },
   "scripts": {

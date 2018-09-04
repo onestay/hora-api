@@ -16,11 +16,11 @@ module.exports = db => db.define('user', {
 		allowNull: false,
 		validate: {
 			len: {
-				msg: 'Must be between 2 and  20 characters',
+				msg: 'Username must be between 2 and 20 characters',
 				args: [2, 20],
 			},
 			is: {
-				msg: 'Only alphanumeric characters and numbers allowed',
+				msg: 'Username may only include alphanumeric characters and numbers',
 				args: /^[a-z0-9]+$/i,
 			},
 		},
@@ -40,7 +40,7 @@ module.exports = db => db.define('user', {
 		validate: {
 			min: {
 				args: 6,
-				msg: 'Password needs at least 6 letters',
+				msg: 'Password has to be at least 6 characters',
 			},
 		},
 	},

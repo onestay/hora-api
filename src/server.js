@@ -1,16 +1,22 @@
 const restify = require('restify');
-const routes = require('./routes.js');
 
-const server = restify.createServer({
-	name: 'Hora',
-});
+class Server {
+	constructor(config) {
+		this.server = restify.createServer({
+			name: 'Hora',
+		});
 
-routes.register(server);
+		this.server.use(restify.plugins.bodyParser());
 
-module.exports.start = (config) => {
-	server.listen(config.port || 3000, () => {
-		config.log.info(`${server.name} started on ${server.url}`);
-	});
-};
+		this.config = config;
+		this.routes = {};
+	}
 
-module.exports.server = server;
+	start() {
+		this.server.listen(this.config.port || 3000, () => {
+			this.config.log.info(`${this.server.name} started on ${this.server.url}`);
+		});
+	}
+}
+
+module.exports = Server;

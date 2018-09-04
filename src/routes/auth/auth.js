@@ -1,8 +1,21 @@
-const auth = {};
+const registerRoute = require('./register');
+const loginRoute = require('./login');
 
-auth.register = (req, res, next) => {
-	res.send('hello world');
-	next();
-};
+class Auth {
+	constructor(db) {
+		this.db = db;
 
-module.exports = auth;
+		this.register = this.register.bind(this);
+		this.login = this.login.bind(this);
+	}
+
+	register(req, res, next) {
+		registerRoute(req, res, next, this.db);
+	}
+
+	login(req, res, next) {
+		loginRoute(req, res, next, this.db);
+	}
+}
+
+module.exports = Auth;

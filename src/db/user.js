@@ -6,14 +6,17 @@ module.exports = db => db.define('user', {
 		type: Sequilize.INTEGER,
 		allowNull: false,
 		primaryKey: true,
+		unique: true,
 	},
 	name: {
 		type: Sequilize.TEXT,
 		allowNull: false,
+		unique: true,
 	},
 	displayName: {
 		type: Sequilize.TEXT,
 		allowNull: false,
+		unique: true,
 		validate: {
 			len: {
 				msg: 'Username must be between 2 and 20 characters',
@@ -28,6 +31,7 @@ module.exports = db => db.define('user', {
 	email: {
 		type: Sequilize.TEXT,
 		allowNull: false,
+		unique: true,
 		validate: {
 			isEmail: {
 				msg: 'Not a valid E-Mail',
@@ -53,9 +57,16 @@ module.exports = db => db.define('user', {
 			// eslint-disable-next-line
 			user.name = user.displayName.toLowerCase();
 		},
-		async beforeCreate(user) {
-			// eslint-disable-next-line
-			user.password = await bcrypt.hash(user.password, 14);
+		afterValidate(user) {
+			return new Promise((resolve, reject) => {
+				bcrypt.hash(user.password, 14)
+					.then((hash) => {
+						// eslint-disable-next-line
+						user.password = hash;
+						resolve();
+					})
+					.catch(e => reject(e));
+			});
 		},
 	},
 });

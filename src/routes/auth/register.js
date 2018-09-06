@@ -1,16 +1,22 @@
 const errors = require('restify-errors');
 const sequelize = require('sequelize');
+const util = require('../../util');
 
 module.exports = async (req, res, next, db) => {
+	const id = util.generateUserID();
+	const refreshToken = util.genereateRefreshToken();
+
 	try {
 		await db.models.user.create({
-			id: 12234,
+			id,
 			displayName: req.body.name,
 			email: req.body.email,
 			password: req.body.password,
+			refreshToken,
 		});
 		res.send({
-			id: 125,
+			id,
+			refreshToken,
 			displayName: req.body.name,
 			email: req.body.email,
 		});

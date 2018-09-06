@@ -5,8 +5,9 @@ const util = require('../../util');
 module.exports = async (req, res, next, db) => {
 	const id = util.generateUserID();
 	const refreshToken = util.genereateRefreshToken();
-
 	try {
+		const token = await util.genereateJWT({ id, name: req.body.name, email: req.body.email });
+
 		await db.models.user.create({
 			id,
 			displayName: req.body.name,
@@ -17,6 +18,7 @@ module.exports = async (req, res, next, db) => {
 		res.send({
 			id,
 			refreshToken,
+			token,
 			displayName: req.body.name,
 			email: req.body.email,
 		});

@@ -16,6 +16,7 @@ class Routes {
 		this.server.post('/auth/login', this.authRoutes.login);
 		this.server.post('/auth/refresh', this.authRoutes.refresh);
 		this.server.post('/auth/invalidate', this.checkAuth, this.authRoutes.invalidate);
+		this.server.post('/auth/verify', this.checkAuth, this.authRoutes.verify);
 	}
 
 	async checkAuth(req, res, next) {
@@ -29,8 +30,8 @@ class Routes {
 			const { data: { name } } = await verify(token, config.jwtSecret);
 			req.username = name;
 		} catch (error) {
-			if (error.name && error.name === 'TokenExpiredError') {
-				return next(new errors.UnauthorizedError('Token expired'));
+			if (error.name) {
+				return next(new errors.UnauthorizedError(`JWT Token error: ${error.message}`));
 			}
 			config.log.error(`An error occured during checkAuth: ${error}`);
 			return next(new errors.InternalServerError('An error occured. Please try again later'));

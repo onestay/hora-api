@@ -2,6 +2,7 @@ const registerRoute = require('./register');
 const loginRoute = require('./login');
 const refreshRoute = require('./refresh');
 const invalidateRoute = require('./invalidate');
+const verifyRoute = require('./verify');
 
 class Auth {
 	constructor(db) {
@@ -11,6 +12,7 @@ class Auth {
 		this.login = this.login.bind(this);
 		this.refresh = this.refresh.bind(this);
 		this.invalidate = this.invalidate.bind(this);
+		this.verify = this.verify.bind(this);
 	}
 
 	register(req, res, next) {
@@ -27,6 +29,10 @@ class Auth {
 
 	invalidate(req, res, next) {
 		invalidateRoute(req, res, next, this.db);
+	}
+
+	verify(req, res, next) {
+		verifyRoute(req, res, next, this.db);
 	}
 }
 

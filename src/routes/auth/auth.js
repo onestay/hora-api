@@ -1,5 +1,7 @@
 const registerRoute = require('./register');
 const loginRoute = require('./login');
+const refreshRoute = require('./refresh');
+const invalidateRoute = require('./invalidate');
 
 class Auth {
 	constructor(db) {
@@ -7,6 +9,8 @@ class Auth {
 
 		this.register = this.register.bind(this);
 		this.login = this.login.bind(this);
+		this.refresh = this.refresh.bind(this);
+		this.invalidate = this.invalidate.bind(this);
 	}
 
 	register(req, res, next) {
@@ -15,6 +19,14 @@ class Auth {
 
 	login(req, res, next) {
 		loginRoute(req, res, next, this.db);
+	}
+
+	refresh(req, res, next) {
+		refreshRoute(req, res, next, this.db);
+	}
+
+	invalidate(req, res, next) {
+		invalidateRoute(req, res, next, this.db);
 	}
 }
 

@@ -20,6 +20,7 @@ module.exports = async (req, res, next, db) => {
 			refreshToken,
 			token,
 			displayName: req.body.name,
+			name: req.body.name.toLowerCase(),
 			email: req.body.email,
 		});
 	} catch (e) {

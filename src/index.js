@@ -1,8 +1,8 @@
 const winston = require('winston');
 const Server = require('./server.js');
-const config = require('../config.json');
 const DB = require('./db/db.js');
 const Routes = require('./routes.js');
+const config = require('./config.js');
 
 const logger = winston.createLogger({
 	level: 'info',
@@ -15,12 +15,12 @@ const logger = winston.createLogger({
 		}),
 	],
 });
-config.log = logger;
+config(logger);
 
-const server = new Server(config);
+const server = new Server(config.config);
 server.start();
 
-const db = new DB(config);
+const db = new DB(config.config);
 db.connect();
 
 const routes = new Routes(server, db);

@@ -25,7 +25,7 @@ class Util {
 
 			const sign = promisify(jwt.sign);
 			sign({
-				exp: Math.floor(Date.now() / 10000) + (10 * 60),
+				exp: Math.floor(Date.now() / 1000) + (10 * 60),
 				data: { id, name, email },
 			}, config.jwtSecret)
 				.then(token => resolve(token))

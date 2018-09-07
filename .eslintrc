@@ -8,6 +8,7 @@
     "rules": {
         "no-tabs":"off",
         "indent": ["error", "tab"],
-        "no-plusplus":"off"
+		"no-plusplus":"off",
+		"class-methods-use-this": "off"
     }
 }

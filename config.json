@@ -7,5 +7,5 @@
 		"host": "localhost",
 		"dialect": "postgres"
 	},
-	"jwtSecret": "dev"
+	"jwtSecret": "32jr789fh32wn0rf9u23jqfuyhqwna0d9qjhu3rfuy23qwihrnfdui9"
 }

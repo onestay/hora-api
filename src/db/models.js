@@ -9,7 +9,10 @@ class Models {
 
 	async initModels() {
 		await this.user.sync();
-		await this.event.sync({ force: true });
+		await this.event.sync();
+
+		this.user.hasMany(this.event, { foreignKey: 'owner', sourceKey: 'id' });
+		this.event.belongsTo(this.user, { foreignKey: 'owner' });
 	}
 }
 

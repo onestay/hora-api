@@ -6,6 +6,15 @@ module.exports = db => db.define('event', {
 		allowNull: false,
 		primaryKey: true,
 		unique: true,
+		validate: {
+			isAlphanumeric: {
+				msg: 'The event ID has to be alphanumeric',
+			},
+			len: {
+				args: [2, 20],
+				msg: 'Event ID has to be between 2 and 20 characters',
+			},
+		},
 	},
 	owner: {
 		type: Sequilize.INTEGER,
@@ -17,12 +26,17 @@ module.exports = db => db.define('event', {
 	},
 	website: {
 		type: Sequilize.TEXT,
+		validate: {
+			isUrl: {
+				msg: 'Website has to be an URL',
+			},
+		},
 	},
 	stream: {
 		type: Sequilize.TEXT,
 		validate: {
 			isUrl: {
-				msg: 'Stream has to be a URL',
+				msg: 'Stream has to be an URL',
 			},
 		},
 	},

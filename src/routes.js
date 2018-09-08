@@ -2,13 +2,16 @@ const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const errors = require('restify-errors');
 const { config } = require('./config');
-const AuthRoutes = require('./routes/auth/auth.js');
+
+const AuthRoutes = require('./routes/auth/auth');
+const EventRoutes = require('./routes/events/events');
 
 class Routes {
 	constructor(server, db) {
 		this.db = db;
 		this.server = server.server;
 		this.authRoutes = new AuthRoutes(this.db);
+		this.eventRoutes = new EventRoutes(this.db);
 	}
 
 	register() {
@@ -17,6 +20,9 @@ class Routes {
 		this.server.post('/auth/refresh', this.authRoutes.refresh);
 		this.server.post('/auth/invalidate', this.checkAuth, this.authRoutes.invalidate);
 		this.server.post('/auth/verify', this.checkAuth, this.authRoutes.verify);
+
+		this.server.post('/event/create', this.checkAuth, this.eventRoutes.create);
+		this.server.get('/event', this.eventRoutes.get);
 	}
 
 	async checkAuth(req, res, next) {
@@ -27,8 +33,8 @@ class Routes {
 
 		const verify = promisify(jwt.verify);
 		try {
-			const { data: { name } } = await verify(token, config.jwtSecret);
-			req.username = name;
+			const { data } = await verify(token, config.jwtSecret);
+			req.user = data;
 		} catch (error) {
 			if (error.name) {
 				return next(new errors.UnauthorizedError(`JWT Token error: ${error.message}`));

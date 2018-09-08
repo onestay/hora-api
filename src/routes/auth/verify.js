@@ -3,7 +3,7 @@ const { config } = require('../../config');
 
 module.exports = async (req, res, next, db) => {
 	try {
-		const user = await db.models.user.findOne({ where: { name: req.username } });
+		const user = await db.models.user.findOne({ where: { id: req.user.id } });
 		if (!user) {
 			return next(new errors.InvalidContentError('User not found'));
 		}

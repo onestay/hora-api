@@ -23,6 +23,7 @@ class Routes {
 
 		this.server.post('/event/create', this.checkAuth, this.eventRoutes.create);
 		this.server.get('/event', this.eventRoutes.get);
+		this.server.patch('/event/edit', this.checkAuth, this.eventRoutes.edit);
 	}
 
 	async checkAuth(req, res, next) {

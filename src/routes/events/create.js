@@ -1,6 +1,6 @@
 const errors = require('restify-errors');
 const sequelize = require('sequelize');
-const config = require('../../config');
+const { config } = require('../../config');
 
 module.exports = async (req, res, next, db) => {
 	try {

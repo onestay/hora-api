@@ -1,7 +1,7 @@
 const errors = require('restify-errors');
 const sequelize = require('sequelize');
 const util = require('../../util');
-const config = require('../../config');
+const { config } = require('../../config');
 
 module.exports = async (req, res, next, db) => {
 	const id = util.generateUserID();

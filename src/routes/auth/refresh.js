@@ -1,6 +1,6 @@
 const errors = require('restify-errors');
 const util = require('../../util');
-const config = require('../../config');
+const { config } = require('../../config');
 
 module.exports = async (req, res, next, db) => {
 	const { refreshToken } = req.body;

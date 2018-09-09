@@ -8,6 +8,7 @@ class Server {
 
 		this.server.use(restify.plugins.bodyParser());
 		this.server.use(restify.plugins.queryParser());
+		this.server.use(restify.plugins.acceptParser(this.server.acceptable));
 
 		this.config = config;
 		this.routes = {};

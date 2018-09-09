@@ -1,6 +1,7 @@
 const createRoute = require('./create');
 const getRoute = require('./get');
 const editRoute = require('./edit');
+const deleteRoute = require('./delete');
 
 class Events {
 	constructor(db) {
@@ -9,6 +10,7 @@ class Events {
 		this.create = this.create.bind(this);
 		this.get = this.get.bind(this);
 		this.edit = this.edit.bind(this);
+		this.delete = this.delete.bind(this);
 	}
 
 	create(req, res, next) {
@@ -21,6 +23,10 @@ class Events {
 
 	edit(req, res, next) {
 		editRoute(req, res, next, this.db);
+	}
+
+	delete(req, res, next) {
+		deleteRoute(req, res, next, this.db);
 	}
 }
 

@@ -1,6 +1,7 @@
 const errors = require('restify-errors');
 const sequelize = require('sequelize');
 const util = require('../../util');
+const config = require('../../config');
 
 module.exports = async (req, res, next, db) => {
 	const id = util.generateUserID();
@@ -27,6 +28,7 @@ module.exports = async (req, res, next, db) => {
 		if (e instanceof sequelize.ValidationError) {
 			return next(new errors.InvalidContentError(e.errors.map(error => error.message).join(', ')));
 		}
+		config.error.log(`Error in register function: ${e}`);
 		return next(new errors.InternalServerError('Something went wrong. Please try again later.'));
 	}
 	return next();

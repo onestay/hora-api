@@ -1,5 +1,6 @@
 const errors = require('restify-errors');
 const util = require('../../util');
+const config = require('../../config');
 
 module.exports = async (req, res, next, db) => {
 	const { refreshToken } = req.body;
@@ -13,6 +14,7 @@ module.exports = async (req, res, next, db) => {
 		const token = await util.genereateJWT(user);
 		res.send({ token });
 	} catch (error) {
+		config.log.error(`Error in refresh refreshtoken function: ${error}`);
 		return next(new errors.InternalServerError('An error occured. Please try again later'));
 	}
 

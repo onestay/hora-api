@@ -6,6 +6,7 @@ const DB = require('../src/db/db');
 const Routes = require('../src/routes.js');
 
 before((done) => {
+	config.log = console;
 	const db = new DB(config);
 	const routes = new Routes(serverObject, db);
 	db.connect()

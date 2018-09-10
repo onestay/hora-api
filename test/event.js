@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 describe('/GET event', () => {
 	it('it should GET an event', (done) => {
 		chai.request(server)
-			.get('/event?id=esa')
+			.get('/event?id=gdq')
 			.end((err, res) => {
 				res.should.have.status(200);
 				done();

@@ -18,16 +18,10 @@ const logger = winston.createLogger({
 config(logger);
 
 const server = new Server(config.config);
-const db = new DB(config.config);
-const routes = new Routes(server, db);
-
-// if we are testing the db connection and routes are initialized in with mocha
-if (process.env.NODE_ENV !== 'test') {
-	db.connect();
-	routes.register();
-}
-
 server.start();
 
-module.exports.serverObject = server;
-module.exports.server = server.server;
+const db = new DB(config.config);
+db.connect();
+
+const routes = new Routes(server, db);
+routes.register();

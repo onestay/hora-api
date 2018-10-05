@@ -43,6 +43,9 @@ module.exports = db => db.define('event', {
 	twitter: {
 		type: Sequilize.TEXT,
 	},
+	discord: {
+		type: Sequilize.TEXT,
+	},
 	private: {
 		type: Sequilize.BOOLEAN,
 	},
